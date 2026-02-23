@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Tagger-Panel Only",
+  "description": "Panel-only edition of Holorun Tagger (fullscreen mode disabled).",
+  "version": "1.0.1",
+
+  "icons": {
+    "128": "icon-img/01_Holorun_Sing_02.jpg"
+  },
+
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab",
+    "tabs"
+  ],
+
+  "host_permissions": [
+    "<all_urls>"
+  ],
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["inject.js"],
+      "css": ["smart-ui.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icon-img/logo.png",
+        "icon-img/01_Holorun_Sing_02.jpg"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

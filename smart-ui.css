@@ -1,0 +1,809 @@
+/* smart-ui.css - COMPLETE FIXED VERSION */
+/* All styles isolated with !important to prevent page CSS conflicts */
+
+/* ==================== GLOBAL SAFETY & RESET ==================== */
+#holorun-fullscreen-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(30, 41, 59, 0.95) !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: opacity 0.3s !important;
+  opacity: 1 !important;
+}
+
+#holorun-fullscreen-overlay button {
+  padding: 16px 32px !important;
+  font-size: 1.2em !important;
+  border-radius: 8px !important;
+  background: #3b82f6 !important;
+  color: #fff !important;
+  border: none !important;
+  cursor: pointer !important;
+  margin-top: 24px !important;
+}
+
+#holorun-fullscreen-overlay div {
+  font-size: 2em !important;
+  color: #fff !important;
+  margin-bottom: 16px !important;
+}
+
+#tag-popup,
+#tag-panel,
+#tag-popup *,
+#tag-panel * {
+  all: initial !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  box-sizing: border-box !important;
+  z-index: 2147483647 !important;
+  line-height: 1.4 !important;
+  color: #1f2937 !important;
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+#tag-panel * {
+  color: #1f2937 !important;
+  background-color: transparent !important;
+}
+
+/* ==================== POPUP STYLES ==================== */
+
+#tag-popup {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  background: #111 !important;
+  color: #fff !important;
+  padding: 16px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  min-width: 220px !important;
+  max-width: 320px !important;
+  animation: slideInRight 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+  }
+  to {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Popup Input */
+#tag-popup input {
+  width: 100% !important;
+  padding: 10px 12px !important;
+  border: 2px solid #333 !important;
+  border-radius: 6px !important;
+  background: #1a1a1a !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  outline: none !important;
+  transition: all 0.2s ease !important;
+  display: block !important;
+}
+
+#tag-popup input::placeholder {
+  color: #666 !important;
+  opacity: 1 !important;
+}
+
+#tag-popup input:focus {
+  border-color: #ffe066 !important;
+  background: #222 !important;
+  box-shadow: 0 0 0 3px rgba(255, 224, 102, 0.15) !important;
+}
+
+#tag-popup input:hover {
+  border-color: #444 !important;
+}
+
+/* Popup Buttons Container */
+#tag-popup > div {
+  display: flex !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+/* Popup Buttons */
+#tag-popup button {
+  flex: 1 !important;
+  padding: 10px 16px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+  text-align: center !important;
+  user-select: none !important;
+}
+
+#save-tag {
+  background: linear-gradient(135deg, #ffe066 0%, #ffca28 100%) !important;
+  color: #111 !important;
+  box-shadow: 0 2px 8px rgba(255, 224, 102, 0.3) !important;
+}
+
+#save-tag:hover {
+  background: linear-gradient(135deg, #ffd633 0%, #ffb300 100%) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(255, 224, 102, 0.4) !important;
+}
+
+#save-tag:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 4px rgba(255, 224, 102, 0.3) !important;
+}
+
+#cancel-tag {
+  background: #2a2a2a !important;
+  color: #ccc !important;
+  border: 1px solid #3a3a3a !important;
+}
+
+#cancel-tag:hover {
+  background: #333 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
+#cancel-tag:active {
+  background: #222 !important;
+}
+
+/* ==================== PANEL STYLES ==================== */
+
+#tag-panel {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  cursor: grab !important;
+  background: #f0f4f8 !important;
+  background-color: #f0f4f8 !important;
+  background-image: none !important;
+  mix-blend-mode: normal !important;
+  isolation: isolate !important;
+  color-scheme: light !important;
+  color: #1f2937 !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  padding: 16px !important;
+  border-radius: 12px 0 0 12px !important;
+  border-left: 3px solid #3b82f6 !important;
+  border-top: 1px solid #d1d5db !important;
+  border-bottom: 1px solid #d1d5db !important;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.12) !important;
+  max-height: 70vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  min-width: 200px !important;
+  max-width: 280px !important;
+  display: block !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  z-index: 2147483646 !important;
+}
+
+#tag-panel:empty {
+  display: none !important;
+}
+
+/* Panel Scrollbar */
+#tag-panel::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+#tag-panel::-webkit-scrollbar-track {
+  background: transparent !important;
+  border-radius: 4px !important;
+  margin: 4px 0 !important;
+}
+
+#tag-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 4px !important;
+  border: 2px solid transparent !important;
+  background-clip: padding-box !important;
+  transition: background 0.2s ease !important;
+}
+
+#tag-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  background-clip: padding-box !important;
+}
+
+#tag-panel::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.35) !important;
+  background-clip: padding-box !important;
+}
+
+/* Firefox Scrollbar */
+#tag-panel {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent !important;
+}
+
+/* ==================== TAG ROW STYLES ==================== */
+
+.tag-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 12px 14px !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  border-radius: 8px !important;
+  margin-bottom: 8px !important;
+  transition: all 0.2s ease !important;
+  color: #1f2937 !important;
+  gap: 10px !important;
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.tag-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+.tag-row::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: none !important;
+  border-radius: 8px !important;
+  opacity: 0 !important;
+  transition: opacity 0.2s ease !important;
+  pointer-events: none !important;
+}
+
+.tag-row:hover::before {
+  opacity: 0 !important;
+}
+
+.tag-row:hover {
+  transform: translateX(-4px) !important;
+  background: #eef2f7 !important;
+  border-color: #d7deea !important;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1) !important;
+}
+
+.tag-row:active {
+  transform: translateX(-3px) scale(0.99) !important;
+}
+
+/* Tag Label */
+.tag-label {
+  flex: 1 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: #1f2937 !important;
+  display: block !important;
+  line-height: 1.4 !important;
+  letter-spacing: 0.01em !important;
+  position: relative !important;
+  z-index: 1 !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.tag-row:hover .tag-label {
+  color: #1f2937 !important;
+}
+
+/* Tag Meta (URL/Page indicator) */
+.tag-meta {
+  font-size: 12px !important;
+  opacity: 1 !important;
+  color: #64748b !important;
+  flex-shrink: 0 !important;
+  white-space: nowrap !important;
+  letter-spacing: 0.01em !important;
+  text-shadow: none !important;
+  background: transparent !important;
+  display: block !important;
+}
+
+.tag-row:hover .tag-meta {
+  color: #334155 !important;
+}
+
+/* ==================== DELETE BUTTON STYLES ==================== */
+
+.tag-delete {
+  color: #b91c1c !important;
+  opacity: 0 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  transition: all 0.15s ease !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  padding: 4px 6px !important;
+  border-radius: 6px !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 24px !important;
+  height: 24px !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 2 !important;
+  text-shadow: none !important;
+}
+
+.tag-row:hover .tag-delete {
+  opacity: 0.8 !important;
+}
+
+.tag-delete:hover {
+  opacity: 1 !important;
+  background: rgba(185, 28, 28, 0.08) !important;
+  color: #991b1b !important;
+  transform: scale(1.05) !important;
+}
+
+.tag-delete:active {
+  transform: scale(0.95) !important;
+  background: rgba(185, 28, 28, 0.12) !important;
+}
+
+/* ==================== HIGHLIGHT STYLES ==================== */
+
+/* Pending Highlight (while tagging) */
+.pending-highlight {
+  background: rgba(255, 200, 80, 0.4) !important;
+  outline: 2px dashed #ff9800 !important;
+  outline-offset: 0px !important;
+  border-radius: 3px !important;
+  animation: pendingPulse 1.5s ease-in-out infinite !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline !important;
+  cursor: default !important;
+  line-height: inherit !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+}
+
+@keyframes pendingPulse {
+  0%, 100% {
+    outline-color: #ff9800 !important;
+    background: rgba(255, 200, 80, 0.4) !important;
+  }
+  50% {
+    outline-color: rgba(255, 152, 0, 0.5) !important;
+    background: rgba(255, 200, 80, 0.5) !important;
+  }
+}
+
+/* Saved Highlight */
+.tag-highlight {
+  background: linear-gradient(135deg, #ffe066 0%, #ffd54f 100%) !important;
+  background-color: #ffe066 !important;
+  background-image: linear-gradient(135deg, #ffe066 0%, #ffd54f 100%) !important;
+  background-clip: padding-box !important;
+  mix-blend-mode: normal !important;
+  isolation: isolate !important;
+  border-radius: 3px !important;
+  padding: 0 2px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  display: inline !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  line-height: inherit !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+  font-weight: inherit !important;
+  letter-spacing: inherit !important;
+  word-spacing: inherit !important;
+  box-shadow: 0 1px 3px rgba(255, 224, 102, 0.2) !important;
+  line-height: inherit !important;
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.tag-highlight:hover {
+  background: linear-gradient(135deg, #ffd633 0%, #ffc107 100%) !important;
+  box-shadow: 0 2px 8px rgba(255, 224, 102, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+.tag-highlight:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 3px rgba(255, 224, 102, 0.3) !important;
+}
+
+/* Highlight tooltip on hover (optional enhancement) */
+.tag-highlight::after {
+  content: attr(data-tag) !important;
+  position: absolute !important;
+  bottom: 100% !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(-8px) !important;
+  background: rgba(17, 17, 17, 0.95) !important;
+  color: #fff !important;
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  transition: opacity 0.2s ease, transform 0.2s ease !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  z-index: 2147483647 !important;
+}
+
+.tag-highlight:hover::after {
+  opacity: 1 !important;
+  transform: translateX(-50%) translateY(-4px) !important;
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+#tag-popup button:focus,
+#tag-popup input:focus,
+.tag-row:focus,
+.tag-delete:focus {
+  outline: 2px solid #ffe066 !important;
+  outline-offset: 2px !important;
+}
+
+.tag-row:focus-visible {
+  background: rgba(255, 224, 102, 0.1) !important;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+
+@media (max-width: 768px) {
+  #tag-popup {
+    right: 10px !important;
+    top: 10px !important;
+    min-width: 200px !important;
+    max-width: calc(100vw - 20px) !important;
+    padding: 14px !important;
+  }
+  
+  #tag-panel {
+    max-width: 180px !important;
+    min-width: 140px !important;
+    padding: 8px !important;
+  }
+  
+  .tag-row {
+    padding: 8px 10px !important;
+  }
+  
+  .tag-label {
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #tag-popup {
+    left: 10px !important;
+    right: 10px !important;
+    max-width: none !important;
+  }
+  
+  #tag-panel {
+    font-size: 11px !important;
+    max-width: 150px !important;
+  }
+  
+  .tag-delete {
+    font-size: 16px !important;
+    width: 22px !important;
+    height: 22px !important;
+  }
+}
+
+/* ==================== PRINT STYLES ==================== */
+
+@media print {
+  #tag-popup,
+  #tag-panel {
+    display: none !important;
+  }
+  
+  .tag-highlight {
+    background: transparent !important;
+    border-bottom: 2px solid #000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  .pending-highlight {
+    display: none !important;
+  }
+}
+
+/* ==================== DARK MODE SUPPORT ==================== */
+
+@media (prefers-color-scheme: light) {
+  /* Users can override if they prefer dark UI even in light mode */
+  /* Currently keeping dark theme as default for better contrast */
+}
+
+/* ==================== REDUCED MOTION ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  #tag-popup,
+  .tag-row,
+  .tag-highlight,
+  .tag-delete,
+  #tag-popup button,
+  #tag-popup input {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .pending-highlight {
+    animation: none !important;
+  }
+}
+
+/* ==================== HIGH CONTRAST MODE ==================== */
+
+@media (prefers-contrast: high) {
+  #tag-popup {
+    border: 2px solid #fff !important;
+  }
+  
+  #tag-popup input {
+    border: 2px solid #fff !important;
+  }
+  
+  .tag-highlight {
+    outline: 2px solid #000 !important;
+  }
+  
+  .tag-row {
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+/* ==================== SAFARI FIXES ==================== */
+
+@supports (-webkit-backdrop-filter: blur(10px)) {
+  #tag-popup,
+  #tag-panel {
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  }
+}
+
+/* ==================== FIREFOX FIXES ==================== */
+
+@-moz-document url-prefix() {
+  .tag-highlight::after {
+    /* Firefox has better tooltip positioning */
+    transform: translateX(-50%) translateY(-6px) !important;
+  }
+}
+
+/* ==================== SELECTION OVERRIDE ==================== */
+
+.tag-highlight::selection,
+.pending-highlight::selection {
+  background: rgba(100, 150, 255, 0.3) !important;
+  color: inherit !important;
+}
+
+.tag-highlight::-moz-selection,
+.pending-highlight::-moz-selection {
+  background: rgba(100, 150, 255, 0.3) !important;
+  color: inherit !important;
+}
+
+/* ==================== WORKFLOW GRID STYLES ==================== */
+
+.workflow-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 12px !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.workflow-window-label {
+  grid-column: 1 / -1 !important;
+  background: linear-gradient(135deg, rgba(255, 224, 102, 0.12) 0%, rgba(255, 224, 102, 0.05) 100%) !important;
+  border-left: 3px solid #ffe066 !important;
+  padding: 8px 12px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ffe066 !important;
+  border-radius: 4px !important;
+  margin-top: 8px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.workflow-window-label:first-child {
+  margin-top: 0 !important;
+}
+
+.workflow-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  aspect-ratio: 3 / 2 !important;
+}
+
+.workflow-card:hover {
+  border-color: rgba(255, 224, 102, 0.3) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.workflow-card.active {
+  border-color: #ffe066 !important;
+  background: rgba(255, 224, 102, 0.08) !important;
+  box-shadow: 0 0 0 2px rgba(255, 224, 102, 0.2) !important;
+}
+
+.workflow-card-chrome {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 10px !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.workflow-card-favicon {
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+.workflow-card-domain {
+  flex: 1 !important;
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.workflow-card-close {
+  width: 20px !important;
+  height: 20px !important;
+  border: none !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #fff !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  flex-shrink: 0 !important;
+  transition: all 0.15s ease !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.workflow-card-close:hover {
+  background: #ff5252 !important;
+  transform: scale(1.1) !important;
+}
+
+.workflow-card-preview {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 80px !important;
+  background: linear-gradient(135deg, rgba(100, 150, 255, 0.3) 0%, rgba(150, 100, 255, 0.3) 100%) !important;
+}
+
+.workflow-card-title {
+  padding: 0 10px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #fff !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin-top: auto !important;
+  padding-top: 8px !important;
+}
+
+.workflow-card-meta {
+  padding: 6px 10px 8px !important;
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.workflow-card-position {
+  font-weight: 600 !important;
+  color: #ffe066 !important;
+  background: rgba(255, 224, 102, 0.15) !important;
+  padding: 2px 6px !important;
+  border-radius: 3px !important;
+  font-size: 10px !important;
+}
+
+.workflow-stats {
+  background: rgba(255, 255, 255, 0.05) !important;
+  padding: 12px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  line-height: 1.6 !important;
+}
+
+.workflow-meta {
+  margin-top: 4px !important;
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.workflow-note {
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-style: italic !important;
+  margin-top: 8px !important;
+}
+
+.workflow-controls {
+  display: flex !important;
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+}
+
+.empty-state {
+  grid-column: 1 / -1 !important;
+  text-align: center !important;
+  padding: 40px 20px !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-size: 13px !important;
+}
