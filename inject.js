@@ -1363,8 +1363,10 @@ document.addEventListener("mouseup", (e) => {
         if (!el) return false;
         // Allow icon selections when we can capture a label for restoration
         if (isIconElement(el)) return false;
-        // Check if inside SVG, canvas, code blocks, or React managed content
-        return el.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable], [role="textbox"], script, style');
+        // Check if inside SVG, canvas, code blocks, or truly editable content.
+        // [contenteditable] alone matches contenteditable="false" (e.g. LinkedIn post wrappers),
+        // so we only block elements that are actually editable.
+        return el.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable="true"], [contenteditable=""], [role="textbox"], script, style');
       };
       
       // Validate both start and end containers
@@ -1411,8 +1413,8 @@ function applyPendingHighlight() {
       return el.closest('[class*="icon"], [data-icon], [role="img"], i') && !el.closest('svg, canvas, pre, code, .mermaid, [class*="diagram"]');
     };
 
-    if ((startEl && startEl.closest && startEl.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable], [role="textbox"]')) ||
-        (endEl && endEl.closest && endEl.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable], [role="textbox"]'))) {
+    if ((startEl && startEl.closest && startEl.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable="true"], [contenteditable=""], [role="textbox"]')) ||
+        (endEl && endEl.closest && endEl.closest('svg, canvas, pre, code, [class*="diagram"], .mermaid, [contenteditable="true"], [contenteditable=""], [role="textbox"]'))) {
       // Allow icons with labels, otherwise block
       const startIconOk = startEl && looksLikeIcon(startEl);
       const endIconOk = endEl && looksLikeIcon(endEl);
@@ -1459,9 +1461,17 @@ function applyPendingHighlight() {
 
     const span = document.createElement("span");
     span.className = "pending-highlight";
-    const fragment = lastSelectionRange.extractContents();
-    span.appendChild(fragment);
-    lastSelectionRange.insertNode(span);
+    // Use surroundContents first — it wraps nodes in-place without removing them,
+    // which avoids triggering React reconciliation (e.g. on LinkedIn).
+    try {
+      lastSelectionRange.surroundContents(span);
+    } catch (e) {
+      // surroundContents throws HierarchyRequestError for cross-element selections;
+      // fall back to the extract-and-reinsert approach.
+      const fragment = lastSelectionRange.extractContents();
+      span.appendChild(fragment);
+      lastSelectionRange.insertNode(span);
+    }
     pendingHighlightSpan = span;
     
     // Store context globally so saveTag() can use it
@@ -1649,6 +1659,33 @@ function saveTag() {
   cleanUrl = cleanUrl.replace(/#holorunTagId=[^&]*&?/g, '#');
   cleanUrl = cleanUrl.replace(/\?holorunTagId=[^&]*&?/g, '?');
   cleanUrl = cleanUrl.replace(/#$/, '').replace(/\?$/, ''); // remove trailing # or ?
+
+  // LinkedIn feed pages (e.g. /feed, /in/username/recent-activity/) are ephemeral —
+  // the same post won't be in the feed on next load. Walk up from the tagged element
+  // to find the post's permanent URL (every post has one) and use that instead.
+  if (location.hostname.includes('linkedin.com') && pendingHighlightSpan) {
+    try {
+      const postContainer = pendingHighlightSpan.closest(
+        '[data-urn], .feed-shared-update-v2, .occludable-update, .scaffold-finite-scroll__content > li, .scaffold-finite-scroll__content > div'
+      );
+      if (postContainer) {
+        const postLink = postContainer.querySelector(
+          'a[href*="/feed/update/"], a[href*="/posts/"], a[href*="/pulse/"]'
+        );
+        if (postLink && postLink.href) {
+          const u = new URL(postLink.href);
+          cleanUrl = u.origin + u.pathname;
+        } else if (postContainer.dataset.urn) {
+          cleanUrl = `https://www.linkedin.com/feed/update/${postContainer.dataset.urn}/`;
+        }
+        if (cleanUrl !== location.href) {
+          console.log(`[LinkedIn] Resolved permanent post URL: ${cleanUrl}`);
+        }
+      }
+    } catch (e) {
+      console.warn('[LinkedIn] Could not resolve permanent post URL:', e.message);
+    }
+  }
 
   const containerTag = getNearestBlockTag(pendingHighlightSpan);
   const kind = classifyTagKind(text, containerTag, iconMeta);
